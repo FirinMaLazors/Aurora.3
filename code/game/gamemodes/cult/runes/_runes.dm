@@ -35,7 +35,7 @@
 	playsound(A, 'sound/effects/projectile_impact/energy_meat2.ogg', 30)
 
 /datum/rune/proc/get_normal_fluff_text()
-	. = SPAN_WARNING("A heavy smell of blood permeates the area around the arcane drawings.")
+	. = SPAN_WARNING("They make no sense to you.")
 
 /datum/rune/proc/get_cultist_fluff_text()
 	. = SPAN_CULT("You remember clear as the night that this is \an [name].")

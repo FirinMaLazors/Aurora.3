@@ -1,5 +1,5 @@
 /obj/effect/rune
-	desc = "A strange collection of symbols drawn in an ink that resembles but isn't quite blood."
+	desc = "A strange collection of symbols drawn in chalk."
 	anchored = 1
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
@@ -21,13 +21,23 @@
 	QDEL_NULL(rune)
 	return ..()
 
-/obj/effect/rune/examine(mob/user)
-	..(user)
+/obj/effect/rune/examine(mob/user, var/distance = -1)
+	
+	//since runes are drawn with magic blood-infused chalk now, we are overriding the examine proc so they aren't visibly blood-stained, even though they have blood in them
+	to_chat(user, desc)
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses)
+			H.glasses.glasses_examine_atom(src, H)
+
 	if(iscultist(user) || isobserver(user))
 		to_chat(user, rune.get_cultist_fluff_text())
 		to_chat(user, "This rune [rune.can_be_talisman() ? "<span class='cult'><b><i>can</i></b></span>" : "<span class='warning'><b><i>cannot</i></b></span>"] be turned into a talisman.")
 	else
 		to_chat(user, rune.get_normal_fluff_text())
+		
+	return distance == -1 || (get_dist(src, user) <= distance)
 
 /obj/effect/rune/attackby(obj/I, mob/user)
 	if(istype(I, /obj/item/book/tome) && iscultist(user))

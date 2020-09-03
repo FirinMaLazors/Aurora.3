@@ -90,8 +90,9 @@
 		if(use_check_and_message(scribe))
 			return
 
-		to_chat(scribe, SPAN_CULT("You feel the energy of His presence wash over you as you close your eyes and worshipfully pierce your finger on the spike in the tome's ink vial. It draws and empowers your blood with dark energy, and when it finishes you wipe off your finger on the inside of the tome."))
-		scribe.visible_message(SPAN_WARNING("[scribe] closes their eyes and fiddles with their book for a bit, then takes out a quill and ink vial, using them to draw strange symbols in a red ink..."))
+		scribe.visible_message(SPAN_WARNING("[scribe] closes their eyes and presses their hand against a page in their book, then takes out a piece of chalk from the book and draws strange symbols on the ground..."), SPAN_CULT("You close your eyes and worshipfully pierce your hand against the spikes on the rune's page, imbuing the tome's chalk with its magic and your blood.  You feel His presence wash over you, sealing the wounds as you begin drawing with the chalk."))
+		src.add_blood(scribe)  //piercing your hand on the spikes should add your blood to it.  examine proc keeps it from being obviously blood-stained.  don't know how to handle it being bloodied by normal means... I guess tomes magically suck in all the blood that gets on them? : P -MalMalmulam
+
 		playsound(scribe, pick('sound/bureaucracy/pen1.ogg','sound/bureaucracy/pen2.ogg'), 50, FALSE)
 
 		if(do_after(scribe, 50))
@@ -107,20 +108,31 @@
 			log_and_message_admins("created \an [chosen_rune] at \the [A.name] - [user.loc.x]-[user.loc.y]-[user.loc.z].") //only message if it's actually made
 
 			var/obj/effect/rune/R = new(get_turf(scribe), SScult.runes_by_name[chosen_rune])
-			to_chat(scribe, SPAN_CULT("You finish drawing the Geometer's markings with a mental prayer and return the quill and vial to their compartment in the tome."))
+			to_chat(scribe, SPAN_CULT("You finish drawing the Geometer's markings with a mental prayer and return the chalk to its compartment in the tome."))
 			R.blood_DNA = list()
 			R.blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type
 			R.color = scribe.species.blood_color
 			R.filters = filter(type="drop_shadow", x = 1, y = 1, size = 4, color = scribe.species.blood_color)
+			
 	else
-		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles.    Dark lines of something like dried blood are smudged across the inside of the cover, and hidden in the back is a compartment for an ink vial and a feather quill."))
+		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols.   Some of the pages have bloody, spiked metal studs poking out from them, in the general shape of a hand.  A piece of chalk, etched with the same kinds of symbols, is nestled in a compartment in the book."))
 
-/obj/item/book/tome/examine(mob/user)
-	..(user)
-	if(!iscultist(user) || !isobserver(user))
-		to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.")
+/obj/item/book/tome/examine(mob/user, var/distance = -1)
+
+	//we are overriding the examine proc to prevent it from showing as blood stained when a cultist bleeds onto the spikes inside.  unfortunately this means being bloodied through normal means also doesn't make it blood-stained... it's a magic tome, it eats blood?  I don't know how to fix it : P -MalMalmulam
+	to_chat(user, desc)
+
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses)
+			H.glasses.glasses_examine_atom(src, H)
+	
+	if(iscultist(user) || isobserver(user))
+		to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though. It is a small item.")
 	else
-		to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though.")
+		to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.  It is a small item.")
+
+	return distance == -1 || (get_dist(src, user) <= distance)
 
 /obj/item/book/tome/cultify()
 	return

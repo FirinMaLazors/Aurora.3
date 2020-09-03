@@ -4,6 +4,7 @@ delete-after: True
 
 changes: 
   - rscadd: "Changed cult welcome text to say tome, not talisman."
-  - rscadd: "Changed cult runes to not be 'blood-stained!'."
-  - rscadd: "Changes text to make the act of drawing a rune more non-obviously weird, more religious for its drawer, and makes looking in the tome more obviously weird."
-  - rscadd: "Changes rune description to merely seem like it's drawn in something like blood, not outright stated to be drawn in blood."
+  - rscadd: "Changed cult runes and tomes to not be 'blood-stained'."
+  - rscadd: "Changes text to make the act of drawing a rune less weird, more religious for its drawer, and makes looking in the tome more weird."
+  - rscadd: "Changes rune description to show it as being drawn in chalk."
+  - rscadd: "Fixes tome description to display the current text to ghosts and cultists."
