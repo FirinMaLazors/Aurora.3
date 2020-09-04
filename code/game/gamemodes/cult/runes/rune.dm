@@ -24,6 +24,7 @@
 /obj/effect/rune/examine(mob/user, var/distance = -1)
 	
 	//since runes are drawn with magic blood-infused chalk now, we are overriding the examine proc so they aren't visibly blood-stained, even though they have blood in them
+	to_chat(user, "\icon[src] That's an rune.")
 	to_chat(user, desc)
 
 	if(ishuman(user))

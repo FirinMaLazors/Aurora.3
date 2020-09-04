@@ -6,6 +6,7 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
+	flags = NOBLOODY
 	unique = TRUE
 	slot_flags = SLOT_BELT
 
@@ -91,7 +92,12 @@
 			return
 
 		scribe.visible_message(SPAN_WARNING("[scribe] closes their eyes and presses their hand against a page in their book, then takes out a piece of chalk from the book and draws strange symbols on the ground..."), SPAN_CULT("You close your eyes and worshipfully pierce your hand against the spikes on the rune's page, imbuing the tome's chalk with its magic and your blood.  You feel His presence wash over you, sealing the wounds as you begin drawing with the chalk."))
-		src.add_blood(scribe)  //piercing your hand on the spikes should add your blood to it.  examine proc keeps it from being obviously blood-stained.  don't know how to handle it being bloodied by normal means... I guess tomes magically suck in all the blood that gets on them? : P -MalMalmulam
+		
+		//piercing your hand on the spikes should add your blood to it.  examine proc keeps it from being obviously blood-stained.  don't know how to handle it being bloodied by normal means... I guess tomes magically suck in all the blood that gets on them? : P -MalMalmulam
+		if(!blood_DNA)
+			blood_DNA = list()
+		if(!blood_DNA[scribe.dna.unique_enzymes])
+			blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type
 
 		playsound(scribe, pick('sound/bureaucracy/pen1.ogg','sound/bureaucracy/pen2.ogg'), 50, FALSE)
 
@@ -120,6 +126,7 @@
 /obj/item/book/tome/examine(mob/user, var/distance = -1)
 
 	//we are overriding the examine proc to prevent it from showing as blood stained when a cultist bleeds onto the spikes inside.  unfortunately this means being bloodied through normal means also doesn't make it blood-stained... it's a magic tome, it eats blood?  I don't know how to fix it : P -MalMalmulam
+	to_chat(user, "\icon[src] That's an arcane tome.  It is a small item.")
 	to_chat(user, desc)
 
 	if(ishuman(user))
@@ -128,9 +135,9 @@
 			H.glasses.glasses_examine_atom(src, H)
 	
 	if(iscultist(user) || isobserver(user))
-		to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though. It is a small item.")
+		to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood. Contains the details of every ritual his followers could think of. Most of these are useless, though.")
 	else
-		to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.  It is a small item.")
+		to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.")
 
 	return distance == -1 || (get_dist(src, user) <= distance)
 
