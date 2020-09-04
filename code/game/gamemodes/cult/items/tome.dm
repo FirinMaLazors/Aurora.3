@@ -6,7 +6,6 @@
 	throw_speed = 1
 	throw_range = 5
 	w_class = 2.0
-	flags = NOBLOODY
 	unique = TRUE
 	slot_flags = SLOT_BELT
 
