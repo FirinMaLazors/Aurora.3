@@ -40,3 +40,7 @@
 /obj/effect/decal/fake_object/light_source/invisible
 	simulated = 0
 	invisibility = 101
+
+obj/effect/decal/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
+	. = ..()
+	

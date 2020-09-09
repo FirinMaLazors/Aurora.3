@@ -156,7 +156,7 @@
 
 	I.forceMove(T)
 
-/obj/item/examine(mob/user, var/distance = -1)
+/obj/item/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = TRUE)
 	var/size
 	switch(src.w_class)
 		if (5.0 to INFINITY)
@@ -173,7 +173,7 @@
 	//things outside its range ~Nanako
 
 
-	return ..(user, distance, "", "It is a [size] item.")
+	return ..(user, distance, "", "It is a [size] item.", show_blood)
 
 /obj/item/attack_hand(mob/user)
 	if (!user) return

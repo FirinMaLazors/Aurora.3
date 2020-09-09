@@ -245,7 +245,7 @@
 		return
 	..()
 
-/obj/examine(mob/user)
+/obj/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
 	. = ..()
 	if((obj_flags & OBJ_FLAG_ROTATABLE) || (obj_flags & OBJ_FLAG_ROTATABLE_ANCHORED))
 		to_chat(user, SPAN_SUBTLE("Can be rotated with alt-click."))
