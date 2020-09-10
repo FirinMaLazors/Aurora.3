@@ -37,28 +37,28 @@ obj/item/book/tome/proc/remove_chalk(mob/user)
 
 	switch (use_check(user, USE_DISALLOW_SILICONS, show_messages = FALSE))
 		if (USE_FAIL_NON_ADJACENT)
-			to_chat(user, "<span class='notice'>You are too far away from [src].</span>")
+			to_chat(user, SPAN_NOTICE("You are too far away from [src]."))
 
 		if (USE_FAIL_IS_SILICON)
 			if (inserted_item)
-				to_chat(user, "<span class='notice'>You do not have hands, how do you propose to remove \the [inserted_item]?</span>")
+				to_chat(user, SPAN_NOTICE("You do not have hands, how do you propose to remove \the [inserted_item]?"))
 			else
-				to_chat(user, "<span class='notice'>You do not have hands.</span>")
+				to_chat(user, SPAN_NOTICE("You do not have hands."))
 
 		if (USE_FAIL_DEAD,USE_FAIL_INCAPACITATED)
-			to_chat(user, "<span class='notice'>You cannot do this in your current state.</span>")
+			to_chat(user, SPAN_NOTICE("You cannot do this in your current state."))
 
 		if (USE_SUCCESS)
 			if (!inserted_item)
-				to_chat(user, "<span class='notice'>[src] does not have a piece of chalk in it.</span>")
+				to_chat(user, SPAN_NOTICE("[src] does not have a piece of chalk in it."))
 				return
 
 			if (loc == user && !user.get_active_hand())
-				to_chat(user, "<span class='notice'>You remove \the [inserted_item] from [src].</span>")
+				to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src]."))
 				user.put_in_hands(inserted_item)
 				inserted_item = null
 			else
-				to_chat(user, "<span class='notice'>You remove \the [inserted_item] from [src], dropping it on the ground. Whoops.</span>")
+				to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src], dropping it on the ground. Whoops."))
 				inserted_item.forceMove(get_turf(src))
 				inserted_item = null
 
@@ -72,11 +72,11 @@ obj/item/book/tome/proc/remove_chalk(mob/user)
 obj/item/book/tome/attackby(obj/item/C as obj, mob/user as mob)
 	if(is_type_in_list(C, contained_item)) //Checks if there is a piece of chalk
 		if(inserted_item)
-			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src].</span>"))
+			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src]."))
 		else
 			user.drop_from_inventory(C,src)
 			inserted_item = C
-			to_chat(user, SPAN_NOTICE("You put \the [C] into \the [src].</span>"))
+			to_chat(user, SPAN_NOTICE("You put \the [C] into \the [src].>"))
 	else
 		. = ..()
 
