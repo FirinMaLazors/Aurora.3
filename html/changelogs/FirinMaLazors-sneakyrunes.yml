@@ -4,12 +4,12 @@ delete-after: True
 
 changes: 
   - rscadd: "Changed cult welcome text to say tome, not talisman."
-  - rscadd: "Recofigured atom/proc/examine to use an argument instead of istype to determine whether something should not show as "blood-stained".  Examine's children have been updated to use the argument correctly."
-  - rscadd: "Changed check to see if something is "oil-stained" from #030303 to COLOR_OIL || COLOR_IPC_BLOOD."
-  - rscadd: "Tomes and runes will not show as "blood-stained".
+  - rscadd: "Recofigured atom/proc/examine to use an argument instead of istype to determine whether something should not show as 'blood-stained'.  Examine's children have been updated to use the argument correctly."
+  - rscadd: "Changed check to see if something is 'oil-stained' from #030303 to COLOR_OIL || COLOR_IPC_BLOOD."
+  - rscadd: "Tomes and runes will not show as 'blood-stained'."
   - rscadd: "Copied and edited PDA-pen code to make the tome spawn with a piece of chalk the color of a nearby cultist's blood in it.  Drawing a cult rune changes the chalk's color to the last drawer's blood color, and bloodies it."
   - rscadd: "Drawing a rune requires having the engraved chalk the tome starts with in it.  Don't lose it."
-  - rscadd: "Changes rune drawing text from cutting your hand with a random knife you never see to draw in blood, to magically imbuing a piece of chalk with your blood using spikes in the tome, then drawing with the chalk.  The finishing text includes a  mental prayer.  The spikes will be bloody if the tome has been used to draw a rune."
+  - rscadd: "Changes rune drawing text from cutting your hand with a random knife you never see to draw in blood, to magically imbuing a piece of chalk with your blood using spikes in the tome, then drawing with the chalk.  The finishing text includes a mental prayer.  The spikes will be bloody if the tome has been used to draw a rune."
   - rscadd: "Changes rune drawing sound to newly added chalk sounds, since we're not using an invisible sacrifical knife anymore.  Attribution https://freesound.org/people/newagesoup/sounds/377843/ and https://freesound.org/people/newagesoup/sounds/377832/ under CC BY 3.0. Converted to .ogg from .wav."
   - rscadd: "Changes crayon, chalk, and cult rune descriptions to be very similar."
   - rscadd: "Changes drafting chalk to just chalk; it can switch between line-drawing mode, which works as normal, and freestyle mode, which works like crayon drawing.  Drawing code copied from crayon code.  It has drawing sound, too; see attribution above."
