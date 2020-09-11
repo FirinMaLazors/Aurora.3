@@ -22,7 +22,6 @@
 	return ..()
 
 /obj/effect/rune/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
-	
 	. = ..()
 
 	if(iscultist(user) || isobserver(user))

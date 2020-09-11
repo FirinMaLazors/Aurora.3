@@ -32,35 +32,22 @@
 
 
 obj/item/book/tome/proc/remove_chalk(mob/user)
-	if (!istype(user))
+
+	if(!istype(user))
 		return
 
-	switch (use_check(user, USE_DISALLOW_SILICONS, show_messages = FALSE))
-		if (USE_FAIL_NON_ADJACENT)
-			to_chat(user, SPAN_NOTICE("You are too far away from [src]."))
+	if(use_check_and_message(user))
+		return
 
-		if (USE_FAIL_IS_SILICON)
-			if (inserted_item)
-				to_chat(user, SPAN_NOTICE("You do not have hands, how do you propose to remove \the [inserted_item]?"))
-			else
-				to_chat(user, SPAN_NOTICE("You do not have hands."))
+	if (loc == user && !user.get_active_hand())
+		to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src]."))
+		user.put_in_hands(inserted_item)
+		inserted_item = null
 
-		if (USE_FAIL_DEAD,USE_FAIL_INCAPACITATED)
-			to_chat(user, SPAN_NOTICE("You cannot do this in your current state."))
-
-		if (USE_SUCCESS)
-			if (!inserted_item)
-				to_chat(user, SPAN_NOTICE("[src] does not have a piece of chalk in it."))
-				return
-
-			if (loc == user && !user.get_active_hand())
-				to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src]."))
-				user.put_in_hands(inserted_item)
-				inserted_item = null
-			else
-				to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src], dropping it on the ground. Whoops."))
-				inserted_item.forceMove(get_turf(src))
-				inserted_item = null
+	else
+		to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src], dropping it on the ground. Whoops."))
+		inserted_item.forceMove(get_turf(src))
+		inserted_item = null
 
 /obj/item/book/tome/verb/verb_remove_chalk()
 	set category = "Object"
