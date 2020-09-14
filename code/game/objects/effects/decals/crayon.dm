@@ -5,30 +5,30 @@
 	layer = 2.1
 	anchored = 1
 
-/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/type = "rune")
+/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "rune")
 	. = ..()
 
-	name = type
-	desc = "A [type] drawn in crayon."
+	name = drawtype
+	desc = "A [drawtype] drawn in crayon."
 
-	switch(type)
+	switch(drawtype)
 		if("rune")
-			type = "rune[rand(1,6)]"
+			drawtype = "rune[rand(1,6)]"
 			desc = "A strange collection of symbols drawn in crayon."
 		if("graffiti")
-			type = pick("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa")
+			drawtype = pick("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa")
 
-	var/icon/mainOverlay = SSicon_cache.crayon_cache[type]
+	var/icon/mainOverlay = SSicon_cache.crayon_cache[drawtype]
 	if (!mainOverlay)
-		mainOverlay = new/icon('icons/effects/crayondecal.dmi',"[type]",2.1)
+		mainOverlay = new/icon('icons/effects/crayondecal.dmi',"[drawtype]",2.1)
 		mainOverlay.Blend(main,ICON_ADD)
-		SSicon_cache.crayon_cache[type] = mainOverlay
+		SSicon_cache.crayon_cache[drawtype] = mainOverlay
 
-	var/icon/shadeOverlay = SSicon_cache.crayon_cache["[type]_s"]
+	var/icon/shadeOverlay = SSicon_cache.crayon_cache["[drawtype]_s"]
 	if (!shadeOverlay)
-		shadeOverlay = new/icon('icons/effects/crayondecal.dmi',"[type]s",2.1)
+		shadeOverlay = new/icon('icons/effects/crayondecal.dmi',"[drawtype]s",2.1)
 		shadeOverlay.Blend(shade,ICON_ADD)
-		SSicon_cache.crayon_cache["[type]_s"] = shadeOverlay
+		SSicon_cache.crayon_cache["[drawtype]_s"] = shadeOverlay
 
 	add_overlay(list(mainOverlay, shadeOverlay))
 
@@ -44,30 +44,30 @@
 	anchored = 1
 	smooth = SMOOTH_TRUE	
 
-/obj/effect/decal/cleanable/chalk/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/type = "rune")
+/obj/effect/decal/cleanable/chalk/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "rune")
 	. = ..()
 
-	name = type
-	desc = "A [type] drawn in chalk."
+	name = drawtype
+	desc = "A [drawtype] drawn in chalk."
 
-	switch(type)
+	switch(drawtype)
 		if("rune")
-			type = "rune[rand(1,6)]"
+			drawtype = "rune[rand(1,6)]"
 			desc = "A strange collection of symbols drawn in chalk."
 		if("graffiti")
-			type = pick("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa")
+			drawtype = pick("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa")
 
-	var/icon/mainOverlay = SSicon_cache.crayon_cache[type]
+	var/icon/mainOverlay = SSicon_cache.crayon_cache[drawtype]
 	if (!mainOverlay)
-		mainOverlay = new/icon('icons/effects/crayondecal.dmi',"[type]",2.1)
+		mainOverlay = new/icon('icons/effects/crayondecal.dmi',"[drawtype]",2.1)
 		mainOverlay.Blend(main,ICON_ADD)
-		SSicon_cache.crayon_cache[type] = mainOverlay
+		SSicon_cache.crayon_cache[drawtype] = mainOverlay
 
-	var/icon/shadeOverlay = SSicon_cache.crayon_cache["[type]_s"]
+	var/icon/shadeOverlay = SSicon_cache.crayon_cache["[drawtype]_s"]
 	if (!shadeOverlay)
-		shadeOverlay = new/icon('icons/effects/crayondecal.dmi',"[type]s",2.1)
+		shadeOverlay = new/icon('icons/effects/crayondecal.dmi',"[drawtype]s",2.1)
 		shadeOverlay.Blend(shade,ICON_ADD)
-		SSicon_cache.crayon_cache["[type]_s"] = shadeOverlay
+		SSicon_cache.crayon_cache["[drawtype]_s"] = shadeOverlay
 
 	add_overlay(list(mainOverlay, shadeOverlay))
 

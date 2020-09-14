@@ -8,46 +8,23 @@
 	w_class = 2.0
 	unique = TRUE
 	slot_flags = SLOT_BELT
-	var/obj/item/inserted_item  //chalk code graciously stolen from the PDA's pen code   -MalMalmulam
-	var/list/contained_item = list(/obj/item/pen/drafting/) 
+	var/obj/item/pen/drafting/inserted_item = new /obj/item/pen/drafting/red/cult
 	var/bloody = ""
 
+//chalk code graciously stolen and edited from the PDA's pen code   -MalMalmulam
 /obj/item/pen/drafting/red/cult
 	name = "engraved chalk"
 	desc = "A piece of chalk for marking areas of floor, or for drawing.  This one has strange symbols engraved on it."
 	color = COLOR_HUMAN_BLOOD
 	colorName = "redc"	
-
-/obj/item/book/tome/Initialize(mapload, ...)
-	. = ..()
-	inserted_item =	new /obj/item/pen/drafting/red/cult(src)
-	var/list/blooddonors = list()  //the chalk turns the color of a random nearby cultist's blood, if there is one
-	for(var/mob/living/carbon/C in range(1, get_turf(src)))
-		if(!iscultist(C)) 
-			continue
-		blooddonors += C
-		if(blooddonors.len)
-			var/mob/living/carbon/blooddonor = pick(blooddonors)
-			inserted_item.color = blooddonor.species.blood_color
-
-
+ 
 obj/item/book/tome/proc/remove_chalk(mob/user)
-
-	if(!istype(user))
-		return
 
 	if(use_check_and_message(user))
 		return
-
-	if (loc == user && !user.get_active_hand())
-		to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src]."))
-		user.put_in_hands(inserted_item)
-		inserted_item = null
-
-	else
-		to_chat(user, SPAN_NOTICE("You remove \the [inserted_item] from [src], dropping it on the ground. Whoops."))
-		inserted_item.forceMove(get_turf(src))
-		inserted_item = null
+	
+	user.put_in_hands(inserted_item)
+	inserted_item = null
 
 /obj/item/book/tome/verb/verb_remove_chalk()
 	set category = "Object"
@@ -56,14 +33,14 @@ obj/item/book/tome/proc/remove_chalk(mob/user)
 
 	remove_chalk(usr)
 	
-obj/item/book/tome/attackby(obj/item/C as obj, mob/user as mob)
-	if(is_type_in_list(C, contained_item)) //Checks if there is a piece of chalk
+obj/item/book/tome/attackby(obj/item/C, mob/user)
+	if(istype(C, /obj/item/pen/drafting)) //Checks if there is a piece of chalk
 		if(inserted_item)
 			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src]."))
 		else
 			user.drop_from_inventory(C,src)
 			inserted_item = C
-			to_chat(user, SPAN_NOTICE("You put \the [C] into \the [src].>"))
+			to_chat(user, SPAN_NOTICE("You put \the [C] into \the [src]."))
 	else
 		. = ..()
 

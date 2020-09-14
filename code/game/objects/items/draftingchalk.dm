@@ -41,50 +41,54 @@
 	to_chat(user, SPAN_SUBTLE("Use the chalk on itself to change what you will draw."))
 
 /obj/item/pen/drafting/afterattack(turf/target, mob/user, proximity)
-	if(linemode)
-		if (!proximity || !istype(target, /turf/simulated) || target.density || target.is_hole)
-			return
-
-		to_chat(user, "You start marking a line on [target].")
-
-		if(!do_after(user, 1 SECONDS, act_target = target))
-			return
-
-		for (var/obj/effect/decal/cleanable/draftingchalk/C in target)
-			qdel(C)
-
-		to_chat(user, "You mark a line on [target].")
-
-		var/obj/effect/decal/cleanable/draftingchalk/C = new(target)
-		C.color = color
-		target.add_fingerprint(user)
-	else	//code copied graciously from crayon.dm
-		if(!proximity) 
-			return 
-		if(istype(target,/turf/simulated/floor))
-			var/originaloc = user.loc
-			var/drawtype = input("Choose what you'd like to draw.", "Chalk freestyle") in list("graffiti","rune","letter","arrow")
-			if (user.loc != originaloc)
-				to_chat(user, "<span class='notice'>You moved!</span>")
+	if(proximity)	
+		if(linemode)
+			if(!istype(target,/turf/simulated/) || target.density || target.is_hole)
 				return
 
-			switch(drawtype)
-				if("letter")
-					drawtype = input("Choose the letter.", "Chalk freestyle") in list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-					to_chat(user, "You start drawing a letter on the [target.name].")
-				if("graffiti")
-					to_chat(user, "You start drawing graffiti on the [target.name].")
-				if("rune")
-					to_chat(user, "You start drawing a rune on the [target.name].")
-				if("arrow")
-					drawtype = input("Choose the arrow.", "Chalk freestyle") in list("left", "right", "up", "down")
-					to_chat(user, "You start drawing an arrow on the [target.name].")
-			if(instant || do_after(user, 50))
-				new /obj/effect/decal/cleanable/chalk(target,color,"#00000000",drawtype)
-				playsound(user, pick('sound/bureaucracy/chalk1.ogg','sound/bureaucracy/chalk2.ogg'), 30, FALSE)
-				to_chat(user, "You finish drawing.")
-				target.add_fingerprint(user)		// Adds their fingerprints to the floor the crayon is drawn on.
-		return
+			to_chat(user, "You start marking a line on [target].")
+
+			if(!do_after(user, 1 SECONDS, act_target = target))
+				return
+
+			for (var/obj/effect/decal/cleanable/draftingchalk/C in target)
+				qdel(C)
+
+			to_chat(user, "You mark a line on [target].")
+
+			var/obj/effect/decal/cleanable/draftingchalk/C = new(target)
+			C.color = color
+			target.add_fingerprint(user)
+		else	//code graciously copied and edited from crayon.dm
+			if(!istype(target,/turf/simulated/) || target.density || target.is_hole)
+				return
+			else	
+				var/originaloc = user.loc
+				var/drawtype = input("Choose what you'd like to draw.", "Chalk freestyle") in list("graffiti","rune","letter","arrow")
+				if (user.loc != originaloc)
+					to_chat(user, "<span class='notice'>You moved!</span>")
+					return
+				var/drawname					
+				switch(drawtype)
+					if("letter")
+						drawtype = input("Choose the letter.", "Chalk freestyle") in list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+						drawname = "a letter"
+					if("graffiti")
+						drawname = "graffiti"
+					if("rune")
+						drawname = "a rune"
+					if("arrow")
+						drawtype = input("Choose the arrow.", "Chalk freestyle") in list("left", "right", "up", "down")
+						drawname = "an arrow"
+				if(!drawname)
+					return //sanity check
+				to_chat(user, "You start drawing [drawname] on [target].")
+				if(instant || do_after(user, 50))
+					new /obj/effect/decal/cleanable/chalk(target,color,"#00000000",drawtype)
+					playsound(user, pick('sound/bureaucracy/chalk1.ogg','sound/bureaucracy/chalk2.ogg'), 30, FALSE)
+					to_chat(user, "You finish drawing.")
+					target.add_fingerprint(user)		// Adds their fingerprints to the floor the crayon is drawn on.
+			return
 
 /obj/item/pen/drafting/red
 	name = "red chalk"

@@ -71,26 +71,30 @@
 	shadeColour = input(user, "Please select the shade colour.", "Crayon colour") as color
 	return
 
-/obj/item/pen/crayon/afterattack(atom/target, mob/user as mob, proximity)
-	if(!proximity) return
-	if(istype(target,/turf/simulated/floor))
+/obj/item/pen/crayon/afterattack(turf/target, mob/user as mob, proximity)
+	if(!proximity) 
+		return
+	if(!(!istype(target,/turf/simulated/) || target.density || target.is_hole))
 		var/originaloc = user.loc
 		var/drawtype = input("Choose what you'd like to draw.", "Crayon scribbles") in list("graffiti","rune","letter","arrow")
 		if (user.loc != originaloc)
 			to_chat(user, "<span class='notice'>You moved!</span>")
 			return
-
+		var/drawname
 		switch(drawtype)
 			if("letter")
 				drawtype = input("Choose the letter.", "Crayon scribbles") in list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-				to_chat(user, "You start drawing a letter on the [target.name].")
+				drawname = "a letter"
 			if("graffiti")
-				to_chat(user, "You start drawing graffiti on the [target.name].")
+				drawname = "graffiti"
 			if("rune")
-				to_chat(user, "You start drawing a rune on the [target.name].")
+				drawname = "a rune"
 			if("arrow")
 				drawtype = input("Choose the arrow.", "Crayon scribbles") in list("left", "right", "up", "down")
-				to_chat(user, "You start drawing an arrow on the [target.name].")
+				drawname = "an arrow"
+		if(!drawname)
+			return
+		to_chat(user, "You start drawing [drawname] on [target].")	
 		if(instant || do_after(user, 50))
 			new /obj/effect/decal/cleanable/crayon(target,colour,shadeColour,drawtype)
 			to_chat(user, "You finish drawing.")
