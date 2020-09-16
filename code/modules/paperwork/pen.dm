@@ -304,8 +304,10 @@ Pen exclusive commands
 	var/shadeColour = "#220000" //RGB
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
+	var/linemode = FALSE
 	reagents_to_add = list(/datum/reagent/crayon_dust = 10)
+	var/utensiltype = "crayon"
 
 /obj/item/pen/crayon/Initialize()
 	. = ..()
-	name = "[colourName] crayon"
+	name = "[colourName] [name]"

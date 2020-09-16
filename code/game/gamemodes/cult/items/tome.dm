@@ -8,15 +8,14 @@
 	w_class = 2.0
 	unique = TRUE
 	slot_flags = SLOT_BELT
-	var/obj/item/pen/drafting/inserted_item = new /obj/item/pen/drafting/red/cult
+	var/obj/item/pen/crayon/chalk/inserted_item = new /obj/item/pen/crayon/chalk/red/cult
 	var/bloody = ""
 
 //chalk code graciously stolen and edited from the PDA's pen code   -MalMalmulam
-/obj/item/pen/drafting/red/cult
+/obj/item/pen/crayon/chalk/red/cult
 	name = "engraved chalk"
 	desc = "A piece of chalk for marking areas of floor, or for drawing.  This one has strange symbols engraved on it."
-	color = COLOR_HUMAN_BLOOD
-	colorName = "redc"	
+	color = COLOR_HUMAN_BLOOD	
  
 obj/item/book/tome/proc/remove_chalk(mob/user)
 
@@ -34,7 +33,7 @@ obj/item/book/tome/proc/remove_chalk(mob/user)
 	remove_chalk(usr)
 	
 obj/item/book/tome/attackby(obj/item/C, mob/user)
-	if(istype(C, /obj/item/pen/drafting)) //Checks if there is a piece of chalk
+	if(istype(C, /obj/item/pen/crayon/chalk)) //Checks if there is a piece of chalk
 		if(inserted_item)
 			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src]."))
 		else
@@ -119,7 +118,7 @@ obj/item/book/tome/attackby(obj/item/C, mob/user)
 			to_chat(scribe, SPAN_WARNING("There is already a rune in this location."))
 			return
 		
-		if(!istype(inserted_item, /obj/item/pen/drafting/red/cult))
+		if(!istype(inserted_item, /obj/item/pen/crayon/chalk/red/cult))
 			to_chat(scribe, SPAN_WARNING("You need an engraved piece of chalk in the tome to draw with."))
 			return
 

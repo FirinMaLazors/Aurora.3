@@ -57,7 +57,11 @@
 		colour = "#000000"
 		shadeColour = "#FFFFFF"
 		to_chat(user, "You will now draw in black and white with this crayon.")
-	return
+	switch(alert("Please select your drawing mode.", "Line or freestyle?", "Line", "Freestyle"))
+		if("Line")
+			linemode = TRUE
+		if("Freestyle")
+			linemode = FALSE
 
 /obj/item/pen/crayon/rainbow
 	icon_state = "crayonrainbow"
@@ -69,37 +73,54 @@
 /obj/item/pen/crayon/rainbow/attack_self(mob/living/user as mob)
 	colour = input(user, "Please select the main colour.", "Crayon colour") as color
 	shadeColour = input(user, "Please select the shade colour.", "Crayon colour") as color
-	return
+	switch(alert("Please select your drawing mode.", "Line or freestyle?", "Line", "Freestyle"))
+		if("Line")
+			linemode = TRUE
+		if("Freestyle")
+			linemode = FALSE
 
 /obj/item/pen/crayon/afterattack(turf/target, mob/user as mob, proximity)
-	if(!proximity) 
+	if(!proximity)
 		return
-	if(!(!istype(target,/turf/simulated/) || target.density || target.is_hole))
+	if(!istype(target,/turf/simulated/) || target.density || target.is_hole)
+		return
+	var/drawtype
+	if(linemode)
+		to_chat(user, "You start marking a line on [target].")
+		if(!do_after(user, 1 SECONDS, act_target = target))
+			return
+		drawtype = "line"
+		for (var/obj/effect/decal/cleanable/crayon/line/C in target)
+			qdel(C)
+		to_chat(user, "You mark a line on [target].")
+		var/obj/effect/decal/cleanable/crayon/line/C = new /obj/effect/decal/cleanable/crayon/line(target,colour,shadeColour,drawtype,utensiltype)
+		C.colour = src.colour
+	else
 		var/originaloc = user.loc
-		var/drawtype = input("Choose what you'd like to draw.", "Crayon scribbles") in list("graffiti","rune","letter","arrow")
-		if (user.loc != originaloc)
+		drawtype = input("Choose what you'd like to draw.", "\proper[utensiltype] drawing") in list("graffiti","rune","letter","arrow")
+		if(user.loc != originaloc)
 			to_chat(user, "<span class='notice'>You moved!</span>")
 			return
 		var/drawname
 		switch(drawtype)
 			if("letter")
-				drawtype = input("Choose the letter.", "Crayon scribbles") in list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+				drawtype = input("Choose the letter.", "\proper[utensiltype] drawing") in list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
 				drawname = "a letter"
 			if("graffiti")
 				drawname = "graffiti"
 			if("rune")
 				drawname = "a rune"
 			if("arrow")
-				drawtype = input("Choose the arrow.", "Crayon scribbles") in list("left", "right", "up", "down")
+				drawtype = input("Choose the arrow.", "\proper[utensiltype] drawing") in list("left", "right", "up", "down")
 				drawname = "an arrow"
 		if(!drawname)
 			return
 		to_chat(user, "You start drawing [drawname] on [target].")	
 		if(instant || do_after(user, 50))
-			new /obj/effect/decal/cleanable/crayon(target,colour,shadeColour,drawtype)
+			new /obj/effect/decal/cleanable/crayon(target,colour,shadeColour,drawtype,utensiltype)
 			to_chat(user, "You finish drawing.")
-			target.add_fingerprint(user)		// Adds their fingerprints to the floor the crayon is drawn on.
-			if(reagents && LAZYLEN(reagents_to_add))
+			target.add_fingerprint(user)  // Adds their fingerprints to the floor the drawing is drawn on. edit: since they're kneeled on the floor -Malmalumam
+			if(reagents && LAZYLEN(reagents_to_add) && utensiltype == "crayon")
 				for(var/datum/reagent/R in reagents_to_add)
 					reagents.remove_reagent(R,0.5/LAZYLEN(reagents_to_add)) //using crayons reduces crayon dust in it.
 				if(!reagents.has_all_reagents(reagents_to_add))
@@ -108,7 +129,7 @@
 	return
 
 /obj/item/pen/crayon/attack(mob/user, var/target_zone)
-	if(ishuman(user))
+	if(ishuman(user) && utensiltype == "crayon")
 		var/mob/living/carbon/human/H = user
 		if(H.check_has_mouth())
 			user.visible_message("<span class='notice'>[user] takes a bite of their crayon and swallows it.</span>", "<span class='notice'>You take a bite of your crayon and swallow it.</span>")
@@ -121,4 +142,14 @@
 		..(user, target_zone)
 
 /obj/item/pen/crayon/attack_self(var/mob/user)
+	if(linemode)
+		linemode = FALSE
+		to_chat(user, SPAN_SUBTLE("You will now draw freestyle."))
+	else
+		linemode = TRUE
+		to_chat(user, SPAN_SUBTLE("You will now draw straight lines."))
 	return
+
+/obj/item/pen/crayon/examine(mob/user)
+	. = ..()
+	to_chat(user, SPAN_SUBTLE("Use the [utensiltype] on itself to change how you will draw."))
