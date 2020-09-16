@@ -18,4 +18,4 @@ changes:
   - rscadd: "Tome description updated to mention the spikes, and make it unholy to cultists."
   - bugfix: "Fixed blood drips saying they're red, since they can be any species' color.  Bonus points for catching the reference."
   - rscadd: "You can draw lines with crayons, too, now.  They're much smoother than chalk lines.  I have a feeling that chalk lines should be smoother too, but, eh?"
-  - rscadd: "Refactored chalk and chalk decals into a subtype of crayon.
+  - rscadd: "Refactored chalk and chalk decals into a subtype of crayon."
