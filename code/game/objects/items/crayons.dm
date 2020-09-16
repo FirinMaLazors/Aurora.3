@@ -93,8 +93,7 @@
 		for (var/obj/effect/decal/cleanable/crayon/line/C in target)
 			qdel(C)
 		to_chat(user, "You mark a line on [target].")
-		var/obj/effect/decal/cleanable/crayon/line/C = new /obj/effect/decal/cleanable/crayon/line(target,colour,shadeColour,drawtype,utensiltype)
-		C.colour = src.colour
+		new /obj/effect/decal/cleanable/crayon/line(target,colour,shadeColour,drawtype,utensiltype)
 	else
 		var/originaloc = user.loc
 		drawtype = input("Choose what you'd like to draw.", "\proper[utensiltype] drawing") in list("graffiti","rune","letter","arrow")

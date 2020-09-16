@@ -1,6 +1,6 @@
 /obj/effect/decal/cleanable/crayon
-	name = "rune"
-	desc = "A strange collection of symbols drawn in crayon."
+	name = "generic scribble"
+	desc = "A generic scribble.  You probably shouldn't see this."
 	icon = 'icons/obj/rune.dmi'
 	layer = 2.1
 	anchored = TRUE
@@ -8,12 +8,11 @@
 /obj/effect/decal/cleanable/crayon/line/
 	name = "crayon marking"
 	desc = "A marking drawn in crayon."
-	icon = 'icons/obj/smooth/chalkline-smooth.dmi'
+	icon = 'icons/obj/smooth/crayonline-smooth.dmi'
 	icon_state = "preview"
 	layer = 2.1
 	anchored = TRUE
 	smooth = SMOOTH_TRUE
-	var/colour = "#FFFFFF"
 
 /obj/effect/decal/cleanable/crayon/line/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "line", var/utensiltype = "crayon")
 	. = ..(mapload, main, shade, drawtype, utensiltype)
@@ -27,8 +26,14 @@
 /obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "rune", var/utensiltype = "crayon")
 	. = ..()
 	if(drawtype == "line")
+		if(utensiltype == "chalk")
+			desc = "A marking drawn in chalk."
+			icon = 'icons/obj/smooth/chalkline-smooth.dmi'
 		add_hiddenprint(usr)
-		return		
+		color = main
+		return
+	if(utensiltype == "chalk")
+		smooth = SMOOTH_TRUE			
 	name = drawtype
 	desc = "A [drawtype] drawn in [utensiltype]."
 	switch(drawtype)

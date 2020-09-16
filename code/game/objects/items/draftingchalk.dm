@@ -31,6 +31,7 @@
 
 /obj/item/pen/crayon/chalk/Initialize()
 	. = ..()
+	color = colour
 	desc = "A piece of [colourName] chalk for marking areas of floor, or for drawing."
 	shadeColour = colour
 
