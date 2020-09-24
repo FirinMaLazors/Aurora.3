@@ -17,7 +17,7 @@
 	desc = "A piece of chalk for marking areas of floor, or for drawing.  This one has strange symbols engraved on it."
 	color = COLOR_HUMAN_BLOOD	
  
-obj/item/book/tome/proc/remove_chalk(mob/user)
+/obj/item/book/tome/proc/remove_chalk(mob/user)
 
 	if(use_check_and_message(user))
 		return
