@@ -5,7 +5,7 @@
 	layer = 2.1
 	anchored = TRUE
 
-/obj/effect/decal/cleanable/crayon/line/
+/obj/effect/decal/cleanable/crayon/line
 	name = "crayon marking"
 	desc = "A marking drawn in crayon."
 	icon = 'icons/obj/smooth/crayonline-smooth.dmi'
