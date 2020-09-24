@@ -177,7 +177,6 @@ obj/item/book/tome/attackby(obj/item/C, mob/user)
 			to_chat(user, SPAN_WARNING("A[bloody] piece of chalk lies nestled within a compartment in the back."))
 
 /obj/item/book/tome/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
-
 	. = ..()
 	
 	if(iscultist(user) || isobserver(user))
