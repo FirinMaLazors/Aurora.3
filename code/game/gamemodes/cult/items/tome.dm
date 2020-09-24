@@ -32,7 +32,7 @@
 
 	remove_chalk(usr)
 	
-obj/item/book/tome/attackby(obj/item/C, mob/user)
+/obj/item/book/tome/attackby(obj/item/C, mob/user)
 	if(istype(C, /obj/item/pen/crayon/chalk)) //Checks if there is a piece of chalk
 		if(inserted_item)
 			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src]."))
