@@ -172,7 +172,7 @@ obj/item/book/tome/attackby(obj/item/C, mob/user)
 			playsound(scribe, pick('sound/bureaucracy/chalk1.ogg','sound/bureaucracy/chalk2.ogg'), 50, FALSE)
 			
 	else
-		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols.   Some of the pages have[bloody] spiked metal studs poking out from them, in the general shape of a hand."))
+		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols. Some of the pages have[bloody] spiked metal studs poking out from them, in the general shape of a hand."))
 		if(inserted_item)
 			to_chat(user, SPAN_WARNING("A[bloody] piece of chalk lies nestled within a compartment in the back."))
 
