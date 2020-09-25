@@ -8,8 +8,11 @@
 	w_class = 2.0
 	unique = TRUE
 	slot_flags = SLOT_BELT
-	var/obj/item/pen/crayon/chalk/inserted_item = new /obj/item/pen/crayon/chalk/red/cult
 	var/bloody = ""
+
+/obj/item/book/tome/Initialize(mapload, ...)
+	. = ..()
+	var/obj/item/pen/crayon/chalk/inserted_item = new /obj/item/pen/crayon/chalk/red/cult
 
 //chalk code graciously stolen and edited from the PDA's pen code   -MalMalmulam
 /obj/item/pen/crayon/chalk/red/cult

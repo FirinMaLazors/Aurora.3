@@ -2,7 +2,7 @@
 	name = "generic scribble"
 	desc = "A generic scribble.  You probably shouldn't see this."
 	icon = 'icons/obj/rune.dmi'
-	layer = 2.1
+	layer = ON_TURF_LAYER
 	anchored = TRUE
 
 /obj/effect/decal/cleanable/crayon/line/
@@ -10,7 +10,7 @@
 	desc = "A marking drawn in crayon."
 	icon = 'icons/obj/smooth/crayonline-smooth.dmi'
 	icon_state = "preview"
-	layer = 2.1
+	layer = ON_TURF_LAYER
 	anchored = TRUE
 	smooth = SMOOTH_TRUE
 
