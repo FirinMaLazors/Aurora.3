@@ -5,7 +5,7 @@
 	layer = ON_TURF_LAYER
 	anchored = TRUE
 
-/obj/effect/decal/cleanable/crayon/line/
+/obj/effect/decal/cleanable/crayon/line
 	name = "crayon marking"
 	desc = "A marking drawn in crayon."
 	icon = 'icons/obj/smooth/crayonline-smooth.dmi'

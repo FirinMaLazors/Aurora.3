@@ -20,7 +20,7 @@
 	desc = "A piece of chalk for marking areas of floor, or for drawing.  This one has strange symbols engraved on it."
 	color = COLOR_HUMAN_BLOOD	
  
-obj/item/book/tome/proc/remove_chalk(mob/user)
+/obj/item/book/tome/proc/remove_chalk(mob/user)
 
 	if(use_check_and_message(user))
 		return
@@ -35,7 +35,7 @@ obj/item/book/tome/proc/remove_chalk(mob/user)
 
 	remove_chalk(usr)
 	
-obj/item/book/tome/attackby(obj/item/C, mob/user)
+/obj/item/book/tome/attackby(obj/item/C, mob/user)
 	if(istype(C, /obj/item/pen/crayon/chalk)) //Checks if there is a piece of chalk
 		if(inserted_item)
 			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src]."))
@@ -175,12 +175,11 @@ obj/item/book/tome/attackby(obj/item/C, mob/user)
 			playsound(scribe, pick('sound/bureaucracy/chalk1.ogg','sound/bureaucracy/chalk2.ogg'), 50, FALSE)
 			
 	else
-		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols.   Some of the pages have[bloody] spiked metal studs poking out from them, in the general shape of a hand."))
+		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols. Some of the pages have[bloody] spiked metal studs poking out from them, in the general shape of a hand."))
 		if(inserted_item)
 			to_chat(user, SPAN_WARNING("A[bloody] piece of chalk lies nestled within a compartment in the back."))
 
 /obj/item/book/tome/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
-
 	. = ..()
 	
 	if(iscultist(user) || isobserver(user))
