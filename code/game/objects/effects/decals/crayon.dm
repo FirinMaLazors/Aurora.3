@@ -10,21 +10,54 @@
 	desc = "A marking drawn in crayon."
 	icon = 'icons/obj/smooth/crayonline-smooth.dmi'
 	icon_state = "preview"
-	layer = ON_TURF_LAYER
-	anchored = TRUE
 	smooth = SMOOTH_TRUE
 
-/obj/effect/decal/cleanable/crayon/line/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "line", var/utensiltype = "crayon")
-	. = ..(mapload, main, shade, drawtype, utensiltype)
+/obj/effect/decal/cleanable/crayon/line/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "line", var/utensiltype = "crayon",var/direction = NORTH,var/istargetwall = FALSE)
+	. = ..(mapload, main, shade, drawtype, utensiltype, direction, istargetwall)
 	if (mapload)
 		queue_smooth(src)
 	else
 		smooth_icon(src)
-		for (var/obj/effect/decal/cleanable/crayon/line/C in orange(1, src))
+		for(var/obj/effect/decal/cleanable/crayon/line/C in orange(1, src))
 			smooth_icon(C)
 
-/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "rune", var/utensiltype = "crayon")
+/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = "#FFFFFF", shade = "#000000", var/drawtype = "rune", var/utensiltype = "crayon", var/direction = NORTH,var/istargetwall = FALSE)
 	. = ..()
+	if(istargetwall) //if we're drawing on a wall, move the decal one tile towards the drawer's location, then nudge it back 31 pixels, so it can only be seen on one side.  -MalMalumam
+		switch(direction)
+			if(NORTH)
+				y++
+				pixel_y -= 31
+			if(NORTHEAST)
+				pixel_x -= 31
+				pixel_y -= 31
+				y++
+				x++
+			if(EAST)
+				pixel_x -= 31
+				x++
+			if(SOUTHEAST)
+				pixel_x -= 31
+				pixel_y += 31
+				x++
+				y--
+			if(SOUTH)
+				pixel_y += 31
+				y--
+			if(SOUTHWEST)
+				pixel_x += 31
+				pixel_y += 31
+				x--
+				y--
+			if(WEST)
+				pixel_x += 31
+				x--
+			if(NORTHWEST)
+				pixel_x += 31
+				pixel_y -= 31
+				x--
+				y++
+
 	if(drawtype == "line")
 		if(utensiltype == "chalk")
 			desc = "A marking drawn in chalk."
@@ -33,7 +66,7 @@
 		color = main
 		return
 	if(utensiltype == "chalk")
-		smooth = SMOOTH_TRUE			
+		smooth = SMOOTH_TRUE
 	name = drawtype
 	desc = "A [drawtype] drawn in [utensiltype]."
 	switch(drawtype)

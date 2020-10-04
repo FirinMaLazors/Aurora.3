@@ -82,18 +82,21 @@
 /obj/item/pen/crayon/afterattack(turf/target, mob/user as mob, proximity)
 	if(!proximity)
 		return
-	if(!istype(target,/turf/simulated/) || target.density || target.is_hole)
+	if(!(istype(target,/turf/simulated/floor) || istype(target,/turf/simulated/wall)) || target.is_hole)
 		return
 	var/drawtype
 	if(linemode)
+		if(istype(target,/turf/simulated/wall))
+			return
 		to_chat(user, "You start marking a line on [target].")
 		if(!do_after(user, 1 SECONDS, act_target = target))
 			return
 		drawtype = "line"
 		for (var/obj/effect/decal/cleanable/crayon/line/C in target)
-			qdel(C)
+			if(C.pixel_x == 0 && C.pixel_y == 0)
+				qdel(C)
 		to_chat(user, "You mark a line on [target].")
-		new /obj/effect/decal/cleanable/crayon/line(target,colour,shadeColour,drawtype,utensiltype)
+		new /obj/effect/decal/cleanable/crayon/line(target,colour,shadeColour,drawtype,utensiltype,get_dir(target, user))
 	else
 		var/originaloc = user.loc
 		drawtype = input("Choose what you'd like to draw.", "\proper[utensiltype] drawing") in list("graffiti","rune","letter","arrow")
@@ -114,9 +117,9 @@
 				drawname = "an arrow"
 		if(!drawname)
 			return
-		to_chat(user, "You start drawing [drawname] on [target].")	
+		to_chat(user, "You start drawing [drawname] on [target].")
 		if(instant || do_after(user, 50))
-			new /obj/effect/decal/cleanable/crayon(target,colour,shadeColour,drawtype,utensiltype)
+			new /obj/effect/decal/cleanable/crayon(target,colour,shadeColour,drawtype,utensiltype,get_dir(target, user),istype(target,/turf/simulated/wall))
 			to_chat(user, "You finish drawing.")
 			target.add_fingerprint(user)  // Adds their fingerprints to the floor the drawing is drawn on. edit: since they're kneeled on the floor -Malmalumam
 			if(reagents && LAZYLEN(reagents_to_add) && utensiltype == "crayon")

@@ -9,22 +9,28 @@
 	unique = TRUE
 	slot_flags = SLOT_BELT
 	var/bloody = ""
+	var/obj/item/pen/crayon/chalk/inserted_item = null
 
 /obj/item/book/tome/Initialize(mapload, ...)
 	. = ..()
-	var/obj/item/pen/crayon/chalk/inserted_item = new /obj/item/pen/crayon/chalk/red/cult
+	inserted_item = new /obj/item/pen/crayon/chalk/red/cult
 
 //chalk code graciously stolen and edited from the PDA's pen code   -MalMalmulam
 /obj/item/pen/crayon/chalk/red/cult
 	name = "engraved chalk"
 	desc = "A piece of chalk for marking areas of floor, or for drawing.  This one has strange symbols engraved on it."
-	color = COLOR_HUMAN_BLOOD	
- 
+	color = COLOR_HUMAN_BLOOD
+
 /obj/item/book/tome/proc/remove_chalk(mob/user)
 
 	if(use_check_and_message(user))
 		return
-	
+
+	if(!inserted_item)
+		to_chat(user, SPAN_NOTICE("There is no chalk within."))
+		return
+
+	inserted_item.forceMove(user)
 	user.put_in_hands(inserted_item)
 	inserted_item = null
 
@@ -34,13 +40,14 @@
 	set src in usr
 
 	remove_chalk(usr)
-	
+
 /obj/item/book/tome/attackby(obj/item/C, mob/user)
 	if(istype(C, /obj/item/pen/crayon/chalk)) //Checks if there is a piece of chalk
 		if(inserted_item)
 			to_chat(user, SPAN_NOTICE("There is already \a [inserted_item] in \the [src]."))
 		else
-			user.drop_from_inventory(C,src)
+			C.forceMove(src)
+			user.drop_from_inventory(C)
 			inserted_item = C
 			to_chat(user, SPAN_NOTICE("You put \the [C] into \the [src]."))
 	else
@@ -120,7 +127,7 @@
 		if(locate(/obj/effect/rune) in scribe.loc)
 			to_chat(scribe, SPAN_WARNING("There is already a rune in this location."))
 			return
-		
+
 		if(!istype(inserted_item, /obj/item/pen/crayon/chalk/red/cult))
 			to_chat(scribe, SPAN_WARNING("You need an engraved piece of chalk in the tome to draw with."))
 			return
@@ -138,19 +145,18 @@
 			return
 
 		scribe.visible_message(SPAN_WARNING("[scribe] turns to a page in their book and presses their hand against it, then uses a piece of chalk to draw strange symbols on the ground..."), SPAN_CULT("Turning to the ritual's page, you pierce your hand against the spikes there, imbuing the chalk within with your blood, and start drawing..."))
-		
+
 		//piercing your hand on the spikes should add your blood to it.  examine proc keeps it from being obviously blood-stained.  don't know how to handle it being bloodied by normal means... I guess tomes magically suck in all the blood that gets on them? : P the chalk, however, will be bloody.  -MalMalmulam
-		
+
 		if(!blood_DNA)
 			blood_DNA = list()
 		if(!blood_DNA[scribe.dna.unique_enzymes])
 			blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type
 			bloody = " <font color='red'>bloody</font>"
-		
 		if(!inserted_item.blood_DNA)  //the chalk's color will become that of the last scribe's blood
 			inserted_item.blood_DNA = list()
 		if(!inserted_item.blood_DNA[scribe.dna.unique_enzymes])
-			inserted_item.blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type	
+			inserted_item.blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type
 		inserted_item.color = scribe.species.blood_color
 		playsound(scribe, pick('sound/bureaucracy/chalk1.ogg','sound/bureaucracy/chalk2.ogg'), 50, FALSE)
 
@@ -158,7 +164,7 @@
 			var/area/A = get_area(scribe)
 			if(use_check_and_message(scribe))
 				return
-			
+
 			//prevents using multiple dialogs to layer runes.
 			if(locate(/obj/effect/rune) in get_turf(scribe)) //This is check is done twice. once when choosing to scribe a rune, once here
 				to_chat(scribe, SPAN_WARNING("There is already a rune in this location."))
@@ -173,7 +179,7 @@
 			R.color = scribe.species.blood_color
 			R.filters = filter(type="drop_shadow", x = 1, y = 1, size = 4, color = scribe.species.blood_color)
 			playsound(scribe, pick('sound/bureaucracy/chalk1.ogg','sound/bureaucracy/chalk2.ogg'), 50, FALSE)
-			
+
 	else
 		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols. Some of the pages have[bloody] spiked metal studs poking out from them, in the general shape of a hand."))
 		if(inserted_item)
@@ -181,9 +187,9 @@
 
 /obj/item/book/tome/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
 	. = ..()
-	
+
 	if(iscultist(user) || isobserver(user))
-		to_chat(user, "The unholy scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood.  Contains the details of every ritual his followers could think of. Most of these are useless, though.\ 
+		to_chat(user, "The unholy scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood.  Contains the details of every ritual his followers could think of. Most of these are useless, though.\
 		</br>At the end of the listing for each ritual lies a[bloody] hand-shaped set of spikes embedded into the page, with which you imbue your blood into chalk for the ritual's magic.")
 		if(inserted_item)
 			to_chat(user, SPAN_NOTICE("A[bloody] piece of chalk lies nestled in its compartment."))
