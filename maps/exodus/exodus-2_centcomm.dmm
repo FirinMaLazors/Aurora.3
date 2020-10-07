@@ -2648,19 +2648,11 @@
 /area/antag/mercenary)
 "amK" = (
 /obj/structure/table/reinforced,
-/obj/machinery/microwave{
-	pixel_x = -1;
-	pixel_y = 8
-	},
 /turf/unsimulated/floor{
 	icon_state = "white"
 	},
 /area/antag/mercenary)
 "amL" = (
-/obj/machinery/microwave{
-	pixel_x = -1;
-	pixel_y = 2
-	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor6"
@@ -2723,10 +2715,7 @@
 /area/antag/mercenary)
 "amS" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
+/obj/item/storage/box/snack,
 /turf/unsimulated/floor{
 	icon_state = "white"
 	},
@@ -2752,15 +2741,12 @@
 	},
 /area/antag/mercenary)
 "amV" = (
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2;
-	pixel_y = 3
-	},
 /obj/machinery/light{
 	dir = 8;
 	icon_state = "tube1"
 	},
 /obj/structure/table/reinforced,
+/obj/item/storage/box/snack,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor6"
 	},
@@ -3866,13 +3852,6 @@
 /area/shuttle/administration)
 "apd" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"ape" = (
-/obj/machinery/microwave,
-/obj/structure/table/reinforced,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -6912,9 +6891,6 @@
 	name = "\improper Raider Base"
 	})
 "azI" = (
-/obj/structure/mirror/raider{
-	pixel_y = 28
-	},
 /obj/structure/sink{
 	pixel_y = 11
 	},
@@ -7312,16 +7288,6 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
-"aBk" = (
-/obj/machinery/optable,
-/obj/item/organ/internal/stack,
-/obj/effect/decal/cleanable/blood/xeno,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
 "aBl" = (
 /obj/effect/decal/cleanable/generic,
 /turf/unsimulated/floor{
@@ -7431,25 +7397,6 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
-"aBD" = (
-/obj/structure/mirror/raider{
-	pixel_y = 28
-	},
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aBE" = (
-/obj/item/clothing/head/philosopher_wig,
-/obj/effect/decal/cleanable/cobweb2,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
 "aBF" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -7552,28 +7499,6 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
-"aBS" = (
-/obj/structure/table/rack,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/gloves/yellow/vox,
-/obj/item/clothing/suit/space/vox/stealth,
-/obj/item/clothing/head/helmet/space/vox/stealth,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aBT" = (
-/obj/item/tape/engineering{
-	icon_state = "engineering_v"
-	},
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
 "aBU" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -7709,26 +7634,6 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
-"aCq" = (
-/obj/structure/table/rack,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/gloves/yellow/vox,
-/obj/item/clothing/suit/space/vox/carapace,
-/obj/item/clothing/head/helmet/space/vox/carapace,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aCr" = (
-/obj/effect/decal/remains/robot,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
 "aCv" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Creed's Office";
@@ -7743,37 +7648,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/creed)
-"aCz" = (
-/obj/structure/table/rack,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/gloves/yellow/vox,
-/obj/item/clothing/suit/space/vox/medic,
-/obj/item/clothing/head/helmet/space/vox/medic,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aCA" = (
-/obj/effect/decal/cleanable/blood/oil/streak,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aCB" = (
-/obj/structure/table/rack,
-/obj/item/clothing/glasses/thermal/plain/monocle,
-/obj/item/clothing/glasses/thermal/plain/monocle,
-/obj/item/clothing/glasses/thermal/plain/monocle,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
 "aCC" = (
 /turf/unsimulated/floor{
 	icon_state = "cult";
@@ -7787,29 +7661,6 @@
 /turf/unsimulated/floor{
 	icon_state = "cult";
 	name = "plating"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aCH" = (
-/obj/structure/table/rack,
-/obj/item/clothing/shoes/magboots/vox,
-/obj/item/clothing/gloves/yellow/vox,
-/obj/item/clothing/suit/space/vox/pressure,
-/obj/item/clothing/head/helmet/space/vox/pressure,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
-"aCI" = (
-/obj/structure/table/rack,
-/obj/item/gun/launcher/spikethrower,
-/obj/item/gun/launcher/spikethrower,
-/obj/item/gun/launcher/spikethrower,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
 	},
 /area/antag/raider{
 	name = "\improper Raider Base"
@@ -7874,15 +7725,6 @@
 	icon_state = "redfull"
 	},
 /area/centcom/specops)
-"aCW" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
-/obj/item/tank/nitrogen,
-/turf/unsimulated/floor{
-	icon_state = "asteroid"
-	},
-/area/antag/raider{
-	name = "\improper Raider Base"
-	})
 "aCX" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -8670,10 +8512,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/skipjack)
 "aFV" = (
-/obj/machinery/microwave{
-	pixel_x = -1;
-	pixel_y = 8
-	},
 /obj/structure/table/steel,
 /turf/simulated/floor/plating,
 /area/shuttle/skipjack)
@@ -9198,31 +9036,10 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/skipjack)
-"aHH" = (
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/structure/table/standard,
-/turf/unsimulated/floor{
-	icon_state = "white"
-	},
-/area/tdome)
 "aHI" = (
 /obj/structure/table/standard,
-/obj/machinery/microwave,
+/obj/item/storage/box/snack,
+/obj/item/storage/box/snack,
 /turf/unsimulated/floor{
 	icon_state = "white"
 	},
@@ -14105,7 +13922,7 @@
 	},
 /area/centcom/creed)
 "aUp" = (
-/obj/effect/floor_decal/industrial/loading,
+/obj/effect/floor_decal/industrial/loading/yellow,
 /obj/machinery/door/airlock/hatch{
 	name = "Warehouse";
 	req_access = list(110)
@@ -16109,12 +15926,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/shuttle/merchant)
-"aZk" = (
-/obj/structure/mirror/merchant{
-	pixel_y = 32
-	},
-/turf/simulated/floor/wood,
-/area/merchant_station)
 "aZl" = (
 /obj/machinery/light,
 /turf/simulated/floor/shuttle,
@@ -16628,7 +16439,7 @@
 	},
 /area/tdome/tdomeadmin)
 "ccP" = (
-/obj/effect/floor_decal/industrial/loading,
+/obj/effect/floor_decal/industrial/loading/yellow,
 /obj/machinery/door/blast/odin{
 	id = "tcfl"
 	},
@@ -17212,7 +17023,7 @@
 /turf/simulated/floor/shuttle/black,
 /area/shuttle/legion)
 "fcK" = (
-/obj/effect/floor_decal/industrial/loading{
+/obj/effect/floor_decal/industrial/loading/yellow{
 	dir = 8
 	},
 /turf/simulated/floor/tiled/dark,
@@ -18944,14 +18755,6 @@
 	},
 /turf/simulated/floor/shuttle/white,
 /area/shuttle/escape)
-"nOB" = (
-/obj/structure/table/steel,
-/obj/machinery/microwave,
-/obj/effect/floor_decal/corner/grey/diagonal,
-/turf/unsimulated/floor{
-	icon_state = "white"
-	},
-/area/centcom/shared_dream)
 "nQT" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -22071,9 +21874,9 @@ alC
 alC
 aya
 aya
-aBS
-aCq
-aCz
+aya
+aya
+aya
 aya
 aya
 alC
@@ -22327,11 +22130,11 @@ azz
 alC
 aya
 aya
-axz
-axz
-axz
-axz
-aCH
+aya
+aya
+aya
+aya
+aya
 aya
 aya
 alC
@@ -22583,13 +22386,13 @@ aaM
 aaM
 alC
 aya
-aBk
-axz
-axz
-axz
-aCA
-axz
-aCH
+aya
+aya
+aya
+aya
+aya
+aya
+aya
 aya
 aya
 alC
@@ -22841,13 +22644,13 @@ aaM
 aaM
 aya
 aya
-aBD
-axz
-axz
-axz
-axz
-axz
-aCq
+aya
+aya
+aya
+aya
+aya
+aya
+aya
 aya
 alC
 alC
@@ -23098,13 +22901,13 @@ aaM
 aaM
 aaM
 aya
-aBE
-axz
-aCr
-axz
-axz
-axz
-aCW
+aya
+aya
+aya
+aya
+aya
+aya
+aya
 aya
 alC
 alC
@@ -23356,11 +23159,11 @@ azZ
 azZ
 azp
 azp
-axz
-axz
-aCB
-aCI
-aCI
+azp
+azp
+aya
+aya
+aya
 aya
 aya
 alC
@@ -23612,9 +23415,9 @@ aAt
 aAH
 aAt
 azD
+azE
+azE
 azp
-aBT
-aBT
 aya
 aya
 aya
@@ -23871,8 +23674,8 @@ azE
 azE
 azD
 azE
-azE
 azp
+aya
 alC
 alC
 alC
@@ -24129,7 +23932,7 @@ azE
 azE
 azD
 azp
-azp
+aya
 alC
 aaM
 alH
@@ -24840,7 +24643,7 @@ alC
 alC
 alC
 aVg
-aZk
+aWk
 aVA
 aVg
 aMi
@@ -48265,7 +48068,7 @@ aox
 aTk
 aPx
 aMM
-ape
+apt
 aSA
 apv
 apU
@@ -48881,7 +48684,7 @@ bxw
 aGW
 aGW
 aGW
-aHH
+aGW
 wMr
 dwT
 llK
@@ -52077,7 +51880,7 @@ sBH
 sBH
 sBH
 shc
-nOB
+vOc
 cNv
 dRO
 cjq

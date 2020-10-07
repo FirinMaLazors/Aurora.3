@@ -3669,7 +3669,8 @@
 	name = "interior access button";
 	pixel_x = -25;
 	pixel_y = -25;
-	req_access = list(10,11,13)
+	req_access = null;
+	req_one_access = list(10,11,13)
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -4312,7 +4313,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Escape pods and Shuttle Docks";
-	req_one_access = list(19,38,63)
+	req_one_access = list(19,38,63,72)
 	},
 /turf/simulated/floor/tiled,
 /area/bridge/levela)
@@ -16182,12 +16183,12 @@
 /area/quartermaster/loading)
 "En" = (
 /obj/structure/table/standard,
-/obj/item/clothing/head/soft/yellow,
+/obj/item/clothing/head/softcap/cargo,
 /obj/item/stamp{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/head/soft/yellow,
+/obj/item/clothing/head/softcap/cargo,
 /obj/effect/floor_decal/corner/brown/full{
 	dir = 8
 	},
@@ -16726,7 +16727,7 @@
 /turf/simulated/floor/tiled,
 /area/quartermaster/loading)
 "Fo" = (
-/obj/effect/floor_decal/industrial/loading{
+/obj/effect/floor_decal/industrial/loading/yellow{
 	dir = 4
 	},
 /turf/simulated/floor/tiled,
@@ -17511,7 +17512,7 @@
 /area/quartermaster/loading)
 "GE" = (
 /obj/effect/floor_decal/industrial/outline/yellow,
-/obj/effect/floor_decal/industrial/loading{
+/obj/effect/floor_decal/industrial/loading/yellow{
 	dir = 8
 	},
 /turf/simulated/floor/tiled,
@@ -26625,7 +26626,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Shuttle Docking";
-	req_one_access = list(19,38,63)
+	req_one_access = list(19,38,63,72)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
