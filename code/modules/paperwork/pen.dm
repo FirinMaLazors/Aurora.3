@@ -299,7 +299,7 @@ Pen exclusive commands
 	drop_sound = 'sound/items/drop/gloves.ogg'
 	pickup_sound = 'sound/items/pickup/gloves.ogg'
 	w_class = ITEMSIZE_TINY
-	attack_verb = list("attacked", "coloured")
+	attack_verb = list("attacked", "coloured", "poked")
 	colour = "#FF0000" //RGB
 	var/shadeColour = "#220000" //RGB
 	var/instant = 0

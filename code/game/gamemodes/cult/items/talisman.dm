@@ -6,7 +6,7 @@
 
 /obj/item/paper/talisman/Initialize()
 	. = ..()
-	name = "bloodied paper"
+	name = "chalked paper"
 	color = "FF6D6D"
 
 /obj/item/paper/talisman/Destroy()
@@ -17,6 +17,8 @@
 	..()
 	if(iscultist(user) && rune)
 		to_chat(user, "The spell inscription reads: <span class='cult'><b><i>[rune.name]</i></b></span>.")
+	else if(!(iscultist(user)) && rune)
+		to_chat(user, "The paper has strange drawings in chalk on it.")
 
 /obj/item/paper/talisman/attack_self(mob/living/user)
 	if(iscultist(user))
@@ -27,7 +29,7 @@
 		else
 			to_chat(user, SPAN_CULT("This talisman has no power."))
 	else
-		to_chat(user, SPAN_CULT("The smell of blood permeates this paper. That can't be good."))
+		to_chat(user, SPAN_NOTICE("The chalk drawings are strangely sticky, but it doesn't come off."))
 		return
 
 /obj/item/paper/talisman/proc/use()

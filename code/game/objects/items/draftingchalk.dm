@@ -1,10 +1,10 @@
 /obj/item/pen/crayon/chalk
 	name = "chalk"
-	desc = "A piece of white chalk for marking areas of floor, or for drawing."
+	desc = "A piece of chalk for marking areas of floor, or for drawing."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "dchalk"
 	colour = "#FFFFFF"
-	attack_verb = list("attacked", "marked")
+	attack_verb = list("attacked", "marked", "poked")
 	colourName = "white"
 	reagents_to_add = null
 	utensiltype = "chalk"
@@ -32,7 +32,8 @@
 /obj/item/pen/crayon/chalk/Initialize()
 	. = ..()
 	color = colour
-	desc = "A piece of [colourName] chalk for marking areas of floor, or for drawing."
+	var/descColourName = " [colourName]"
+	desc = "A piece of[descColourName] chalk for marking areas of floor, or for drawing."
 	shadeColour = colour
 
 /obj/item/storage/box/fancy/crayons/chalkbox

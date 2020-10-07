@@ -65,8 +65,6 @@
 		add_hiddenprint(usr)
 		color = main
 		return
-	if(utensiltype == "chalk")
-		smooth = SMOOTH_TRUE
 	name = drawtype
 	desc = "A [drawtype] drawn in [utensiltype]."
 	switch(drawtype)
@@ -75,20 +73,19 @@
 			desc = "A strange collection of symbols drawn in [utensiltype]."
 		if("graffiti")
 			drawtype = pick("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa")
-	var/icon/mainOverlay = SSicon_cache.crayon_cache[drawtype]
+	var/drawandcolortype = "[drawtype][main][shade]"
+	var/icon/mainOverlay = SSicon_cache.crayon_cache[drawandcolortype]
 	if (!mainOverlay)
 		mainOverlay = new/icon('icons/effects/crayondecal.dmi',"[drawtype]",2.1)
 		mainOverlay.Blend(main,ICON_ADD)
-		SSicon_cache.crayon_cache[drawtype] = mainOverlay
+		SSicon_cache.crayon_cache[drawandcolortype] = mainOverlay
 
-	var/icon/shadeOverlay = SSicon_cache.crayon_cache["[drawtype]_s"]
+	var/icon/shadeOverlay = SSicon_cache.crayon_cache["[drawandcolortype]_s"]
 	if (!shadeOverlay)
 		shadeOverlay = new/icon('icons/effects/crayondecal.dmi',"[drawtype]s",2.1)
 		shadeOverlay.Blend(shade,ICON_ADD)
-		SSicon_cache.crayon_cache["[drawtype]_s"] = shadeOverlay
+		SSicon_cache.crayon_cache["[drawandcolortype]_s"] = shadeOverlay
 
 	add_overlay(list(mainOverlay, shadeOverlay))
-
-	SSicon_cache.crayon_cache.Cut()
 
 	add_hiddenprint(usr)

@@ -9,17 +9,20 @@
 	unique = TRUE
 	slot_flags = SLOT_BELT
 	var/bloody = ""
+	var/chalkbloody = ""
 	var/obj/item/pen/crayon/chalk/inserted_item = null
 
 /obj/item/book/tome/Initialize(mapload, ...)
 	. = ..()
-	inserted_item = new /obj/item/pen/crayon/chalk/red/cult
+	inserted_item = new /obj/item/pen/crayon/chalk/cult
 
 //chalk code graciously stolen and edited from the PDA's pen code   -MalMalmulam
-/obj/item/pen/crayon/chalk/red/cult
+/obj/item/pen/crayon/chalk/cult
 	name = "engraved chalk"
 	desc = "A piece of chalk for marking areas of floor, or for drawing.  This one has strange symbols engraved on it."
-	color = COLOR_HUMAN_BLOOD
+	colour = COLOR_GRAY40
+	shadeColour = COLOR_GRAY20
+	colourName = ""
 
 /obj/item/book/tome/proc/remove_chalk(mob/user)
 
@@ -75,6 +78,9 @@
 	if(iscultist(M))
 		return
 
+	if(user.a_intent != I_HURT)
+		return
+
 	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	M.take_organ_damage(0, rand(5,20)) //really lucky - 5 hits for a crit
 	visible_message(SPAN_WARNING("\The [user] beats \the [M] with \the [src]!"))
@@ -116,6 +122,10 @@
 				tome_win.set_content(SScult.tome_data)
 				tome_win.add_stylesheet("cult", 'html/browser/cult.css')
 				tome_win.open()
+				if(inserted_item)
+					if(!inserted_item.blood_DNA)
+						chalkbloody = ""
+					to_chat(user, SPAN_NOTICE("A[chalkbloody] piece of chalk lies nestled in its compartment."))
 				return
 			if("Scribe a rune")
 				// This counts how many runes exist in the game, for some sort of arbitrary rune limit. I trust the old devs had their reasons. - Geeves
@@ -128,7 +138,7 @@
 			to_chat(scribe, SPAN_WARNING("There is already a rune in this location."))
 			return
 
-		if(!istype(inserted_item, /obj/item/pen/crayon/chalk/red/cult))
+		if(!istype(inserted_item, /obj/item/pen/crayon/chalk/cult))
 			to_chat(scribe, SPAN_WARNING("You need an engraved piece of chalk in the tome to draw with."))
 			return
 
@@ -150,11 +160,12 @@
 
 		if(!blood_DNA)
 			blood_DNA = list()
+			bloody = SPAN_CULT(" <font color='red'>bloody</font>")
 		if(!blood_DNA[scribe.dna.unique_enzymes])
 			blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type
-			bloody = " <font color='red'>bloody</font>"
 		if(!inserted_item.blood_DNA)  //the chalk's color will become that of the last scribe's blood
 			inserted_item.blood_DNA = list()
+			chalkbloody = SPAN_CULT(" <font color='red'>bloody</font>")
 		if(!inserted_item.blood_DNA[scribe.dna.unique_enzymes])
 			inserted_item.blood_DNA[scribe.dna.unique_enzymes] = scribe.dna.b_type
 		inserted_item.color = scribe.species.blood_color
@@ -183,18 +194,26 @@
 	else
 		to_chat(user, SPAN_CULT("The book seems full of illegible scribbles and bizarre symbols. Some of the pages have[bloody] spiked metal studs poking out from them, in the general shape of a hand."))
 		if(inserted_item)
-			to_chat(user, SPAN_WARNING("A[bloody] piece of chalk lies nestled within a compartment in the back."))
+			if(!inserted_item.blood_DNA)
+				chalkbloody = ""
+			to_chat(user, SPAN_WARNING("A[chalkbloody] piece of chalk lies nestled within a compartment in the back."))
 
 /obj/item/book/tome/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
 	. = ..()
-
 	if(iscultist(user) || isobserver(user))
 		to_chat(user, "The unholy scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood.  Contains the details of every ritual his followers could think of. Most of these are useless, though.\
 		</br>At the end of the listing for each ritual lies a[bloody] hand-shaped set of spikes embedded into the page, with which you imbue your blood into chalk for the ritual's magic.")
-		if(inserted_item)
-			to_chat(user, SPAN_NOTICE("A[bloody] piece of chalk lies nestled in its compartment."))
 	else
 		to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.")
 
 /obj/item/book/tome/cultify()
 	return
+
+/obj/item/book/tome/clean_blood()  //in case you want to clean your tome.
+	. = ..()
+	bloody = initial(bloody)
+
+/obj/item/pen/crayon/chalk/cult/clean_blood()  //color washes out to the original color upon cleaning
+	. = ..()
+	colour = COLOR_GRAY20
+	color = colour
