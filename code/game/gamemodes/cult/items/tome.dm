@@ -201,7 +201,7 @@
 /obj/item/book/tome/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "", var/show_blood = FALSE)
 	. = ..()
 	if(iscultist(user) || isobserver(user))
-		to_chat(user, "The unholy scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood.  Contains the details of every ritual his followers could think of. Most of these are useless, though.\
+		to_chat(user, "The scriptures of Nar-Sie, The One Who Sees, The Geometer of Blood.  Contains the details of every ritual his followers could think of. Most of these are useless, though.\
 		</br>At the end of the listing for each ritual lies a[bloody] hand-shaped set of spikes embedded into the page, with which you imbue your blood into chalk for the ritual's magic.")
 	else
 		to_chat(user, "An old, dusty tome with frayed edges and a sinister looking cover.")
